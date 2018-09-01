@@ -10,9 +10,12 @@ public:
     explicit PointsArea(QWidget *parent = nullptr);
     void clear();
 
-signals:
+protected:
+    virtual void mouseReleaseEvent(QMouseEvent *event) override;
+    virtual void paintEvent(QPaintEvent *event) override;
 
-public slots:
+private:
+    QList<QPoint> m_points;
 };
 
 #endif // POINTSAREA_H
