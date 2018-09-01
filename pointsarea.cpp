@@ -42,9 +42,16 @@ void PointsArea::paintEvent(QPaintEvent* event)
     painter.setBrush(brush);
     painter.setPen(pen);
 
+    float horFactor = static_cast<double>(this->width()) / 300;
+    float verFactor = static_cast<double>(this->height()) / 300;
+
     foreach (QPoint p, m_points) {
         QRect r(0, 0, 3, 3);
-        r.moveCenter(p);
+
+        QPoint factoredPoint(p.x() * horFactor,
+                              p.y() * verFactor);
+
+        r.moveCenter(factoredPoint);
 
         painter.drawRect(r);
     }
