@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include "pointsarea.h"
+#include "splinealgorithm.h"
 
 #include <QWidget>
 #include <QSlider>
@@ -12,18 +13,17 @@ class Widget : public QWidget
 
 public:
     Widget(QWidget *parent = 0);
-    ~Widget();
 
 private slots:
     void onCalcClicked();
     void onClearClicked();
 
-protected:
-    int stepValue();
+    virtual void resizeEvent(QResizeEvent *event);
 
 private:
     QSlider* m_stepSlider;
     PointsArea* m_pointsArea;
+    SplineAlgorithm m_algorithm;
 };
 
 #endif // WIDGET_H

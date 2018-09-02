@@ -14,6 +14,30 @@ PointsArea::PointsArea(QWidget *parent)
 void PointsArea::clear()
 {
     m_points.clear();
+    m_additionalPoints.clear();
+    update();
+}
+
+QList<QPoint> PointsArea::mainPoints()
+{
+    QList<QPoint> resultFactored;
+
+    float horFactor = static_cast<double>(this->width()) / 300;
+    float verFactor = static_cast<double>(this->height()) / 300;
+
+    foreach (QPoint p, m_points) {
+        QPoint factoredPoint(p.x() * horFactor,
+                              p.y() * verFactor);
+
+        resultFactored.append(factoredPoint);
+    }
+
+    return resultFactored;
+}
+
+void PointsArea::setAdditionalPoints(QList<QPoint> points)
+{
+    m_additionalPoints = points;
     update();
 }
 
@@ -35,24 +59,21 @@ void PointsArea::paintEvent(QPaintEvent* event)
 {
     QWidget::paintEvent(event);
 
-    QBrush brush(Qt::white, Qt::SolidPattern);
-    QPen pen(Qt::black);
-
     QPainter painter(this);
-    painter.setBrush(brush);
-    painter.setPen(pen);
+    painter.setBrush(Qt::white);
+    painter.setPen(Qt::black);
 
-    float horFactor = static_cast<double>(this->width()) / 300;
-    float verFactor = static_cast<double>(this->height()) / 300;
-
-    foreach (QPoint p, m_points) {
+    foreach (QPoint p, mainPoints()) {
         QRect r(0, 0, 3, 3);
 
-        QPoint factoredPoint(p.x() * horFactor,
-                              p.y() * verFactor);
-
-        r.moveCenter(factoredPoint);
+        r.moveCenter(p);
 
         painter.drawRect(r);
+    }
+
+    painter.setPen(Qt::red);
+
+    foreach (QPoint p, m_additionalPoints) {
+        painter.drawPoint(p);
     }
 }

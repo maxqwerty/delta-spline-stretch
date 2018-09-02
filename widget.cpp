@@ -9,6 +9,7 @@ Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , m_stepSlider(new QSlider())
     , m_pointsArea(new PointsArea(this))
+    , m_algorithm(SplineAlgorithm(m_pointsArea))
 {
     m_stepSlider->setOrientation(Qt::Horizontal);
     m_stepSlider->setTickInterval(10);
@@ -20,6 +21,8 @@ Widget::Widget(QWidget *parent)
 
     QHBoxLayout* controlsLay = new QHBoxLayout();
 
+    m_algorithm.setStep(0);
+
     QLabel* tickText = new QLabel("0", this);
     tickText->setMinimumWidth(20);
     tickText->setMaximumWidth(20);
@@ -28,8 +31,9 @@ Widget::Widget(QWidget *parent)
     controlsLay->addWidget(m_stepSlider);
 
     connect(m_stepSlider, &QSlider::valueChanged,
-            [tickText](int value)
+            [tickText, this](int value)
     {
+        m_algorithm.setStep(value);
         tickText->setText(QString::number(value));
     });
 
@@ -49,16 +53,18 @@ Widget::Widget(QWidget *parent)
     setLayout(mainLay);
 }
 
-Widget::~Widget()
+void Widget::resizeEvent(QResizeEvent* event)
 {
+    QWidget::resizeEvent(event);
 
+    onCalcClicked();
 }
 
 void Widget::onCalcClicked()
 {
     m_stepSlider->setEnabled(false);
 
-    //TODO: add "calculation and rendering" call here
+    m_algorithm.calc();
 
     m_stepSlider->setEnabled(true);
 }
@@ -66,9 +72,4 @@ void Widget::onCalcClicked()
 void Widget::onClearClicked()
 {
     m_pointsArea->clear();
-}
-
-int Widget::stepValue()
-{
-    return m_stepSlider->value();
 }

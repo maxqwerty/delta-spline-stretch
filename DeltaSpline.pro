@@ -26,8 +26,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         widget.cpp \
-    pointsarea.cpp
+    pointsarea.cpp \
+    splinealgorithm.cpp
 
 HEADERS += \
         widget.h \
-    pointsarea.h
+    pointsarea.h \
+    splinealgorithm.h
