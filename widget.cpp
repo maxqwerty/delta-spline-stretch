@@ -47,6 +47,20 @@ Widget::Widget(QWidget *parent)
             this, &Widget::onClearClicked);
     controlsLay->addWidget(clearButton);
 
+
+    QPushButton* presetButton = new QPushButton("Preset", this);
+    connect(presetButton, &QPushButton::clicked,
+            [&]()
+    {
+        m_pointsArea->setMainPoints(QList<QPoint>()
+                                    << QPoint(50, 50)
+                                    << QPoint(100, 250)
+                                    << QPoint(150, 50)
+                                    << QPoint(200, 250)
+                                    << QPoint(250, 50));
+    });
+    controlsLay->addWidget(presetButton);
+
     mainLay->addLayout(controlsLay);
     mainLay->addWidget(m_pointsArea);
 

@@ -35,6 +35,12 @@ QList<QPoint> PointsArea::mainPoints()
     return resultFactored;
 }
 
+void PointsArea::setMainPoints(QList<QPoint> points)
+{
+    m_points = points;
+    update();
+}
+
 void PointsArea::setAdditionalPoints(QList<QPointF> points)
 {
     m_additionalPoints = points;
@@ -48,7 +54,14 @@ void PointsArea::mouseReleaseEvent(QMouseEvent* event)
         QWidget::mouseReleaseEvent(event);
     }
 
-    m_points.append(event->pos());
+    QPoint p = event->pos();
+
+    float horFactor = static_cast<double>(this->width()) / 300;
+    float verFactor = static_cast<double>(this->height()) / 300;
+    p.setX(p.x() / horFactor);
+    p.setY(p.y() / verFactor);
+
+    m_points.append(p);
 
     event->accept();
 
@@ -69,6 +82,7 @@ void PointsArea::paintEvent(QPaintEvent* event)
         r.moveCenter(p);
 
         painter.drawRect(r);
+        painter.drawText(p, QString("%1,%2").arg(p.x()).arg(p.y()));
     }
 
     painter.setPen(Qt::red);

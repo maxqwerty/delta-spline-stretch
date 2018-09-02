@@ -11,6 +11,7 @@ public:
     void clear();
 
     QList<QPoint> mainPoints();
+    void setMainPoints(QList<QPoint>);
     void setAdditionalPoints(QList<QPointF> points);
 
 protected:
