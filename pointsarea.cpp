@@ -35,7 +35,7 @@ QList<QPoint> PointsArea::mainPoints()
     return resultFactored;
 }
 
-void PointsArea::setAdditionalPoints(QList<QPoint> points)
+void PointsArea::setAdditionalPoints(QList<QPointF> points)
 {
     m_additionalPoints = points;
     update();
@@ -73,7 +73,7 @@ void PointsArea::paintEvent(QPaintEvent* event)
 
     painter.setPen(Qt::red);
 
-    foreach (QPoint p, m_additionalPoints) {
+    foreach (QPointF p, m_additionalPoints) {
         painter.drawPoint(p);
     }
 }

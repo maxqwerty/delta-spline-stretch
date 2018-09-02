@@ -11,7 +11,7 @@ public:
     void clear();
 
     QList<QPoint> mainPoints();
-    void setAdditionalPoints(QList<QPoint> points);
+    void setAdditionalPoints(QList<QPointF> points);
 
 protected:
     virtual void mouseReleaseEvent(QMouseEvent *event) override;
@@ -19,7 +19,7 @@ protected:
 
 private:
     QList<QPoint> m_points;
-    QList<QPoint> m_additionalPoints;
+    QList<QPointF> m_additionalPoints;
 };
 
 #endif // POINTSAREA_H

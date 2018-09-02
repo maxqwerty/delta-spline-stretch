@@ -57,7 +57,7 @@ void Widget::resizeEvent(QResizeEvent* event)
 {
     QWidget::resizeEvent(event);
 
-    m_pointsArea->setAdditionalPoints(QList<QPoint>());
+    m_pointsArea->setAdditionalPoints(QList<QPointF>());
 }
 
 void Widget::onCalcClicked()

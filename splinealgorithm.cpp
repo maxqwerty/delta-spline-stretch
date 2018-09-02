@@ -15,7 +15,7 @@ void SplineAlgorithm::setStep(int step)
 void SplineAlgorithm::calc()
 {
     //TODO: place splines algorithm here
-    QList<QPoint> additionalPoints;
+    QList<QPointF> additionalPoints;
 
     QList<QPoint> mainPoints = m_targetArea->mainPoints();
 
