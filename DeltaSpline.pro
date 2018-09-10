@@ -27,9 +27,11 @@ SOURCES += \
         main.cpp \
         widget.cpp \
     pointsarea.cpp \
-    splinealgorithm.cpp
+    splinealgorithm.cpp \
+    patharea.cpp
 
 HEADERS += \
         widget.h \
     pointsarea.h \
-    splinealgorithm.h
+    splinealgorithm.h \
+    patharea.h

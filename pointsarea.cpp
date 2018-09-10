@@ -73,6 +73,7 @@ void PointsArea::paintEvent(QPaintEvent* event)
     QWidget::paintEvent(event);
 
     QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
     painter.setBrush(Qt::white);
     painter.setPen(Qt::black);
 
@@ -85,9 +86,19 @@ void PointsArea::paintEvent(QPaintEvent* event)
         painter.drawText(p, QString("%1,%2").arg(p.x()).arg(p.y()));
     }
 
-    painter.setPen(Qt::red);
-
-    foreach (QPointF p, m_additionalPoints) {
-        painter.drawPoint(p);
+    if (m_additionalPoints.isEmpty())
+    {
+        return;
     }
+
+    painter.setPen(Qt::red);
+    painter.setBrush(Qt::transparent);
+
+    QPainterPath path(m_additionalPoints.first());
+
+    for(int i = 1; i < m_additionalPoints.length(); ++i) {
+        path.lineTo(m_additionalPoints.at(i));
+    }
+
+    painter.drawPath(path);
 }
